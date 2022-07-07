@@ -14,6 +14,11 @@ class FunctionCache
             this->second = second;
         }
 
+        friend bool operator < (const Parameters lhs, const Parameters rhs)
+        {
+            return lhs.first < rhs.first ? true : (lhs.second < rhs.second ? true : false);
+        }
+
         int first;
         int second;
     };
@@ -24,35 +29,20 @@ public:
     int calculate(int first, int second)
     {
         Parameters parameters(first, second);
-        auto it = findAndCompareElementsInCalculations(parameters);//calculations.find(args);
+        auto it = calculations.find(parameters);
 
         if (it != calculations.end())
             return it->second;
 
-        // create the shared pointer only when needed
-        auto args = std::make_shared<Parameters>(parameters);
         int calculation = function(first, second);
-        calculations[args] = calculation;
+        calculations[parameters] = calculation;
         return calculation;
     }
 
 
 private:
-    std::map<std::shared_ptr<Parameters>, int> calculations;
+    std::map<Parameters, int> calculations;
     std::function<int(int, int)> function;
-
-    std::map<std::shared_ptr<Parameters>, int>::iterator findAndCompareElementsInCalculations(const Parameters& parameters)
-    {
-        for (std::map<std::shared_ptr<Parameters>, int>::iterator itr = calculations.begin(); itr != calculations.end(); ++itr)
-        {
-            if ((*itr).first->first == parameters.first && (*itr).first->second == parameters.second)
-            {
-                return itr;
-            }
-        }
-
-        return calculations.end();
-    }
 };
 
 #ifndef RunTests
@@ -63,8 +53,6 @@ int modulo(int a, int b)
     return a % b;
 }
 
-// one way to improve performance can be using the modulo as the key and share_ptr as the value
-// but that would rule out parameters with same modulo value in case we're intereseted in all unique pairs
 int main()
 {
     FunctionCache cache(modulo);
