@@ -22,9 +22,21 @@ public:
 
 #pragma endregion
 
-/*
+
 int main()
 {
+
+#pragma region Virtual Destructor
+
+    base* b = new derived();
+    delete b;
+    std::cout << std::endl;
+
+#pragma endregion
+
+
+
+#pragma region Default Values
     float f = 1;
 
     Adam a{};
@@ -32,6 +44,8 @@ int main()
     // checking default values of variables within structure
     //std::cout << f << " oo " << a.weight;
 
+#pragma endregion
+    
 
 #pragma region Bit Shifting Operations 
     int mask = 0;
@@ -65,4 +79,4 @@ int main()
 #pragma endregion
 
 }
-*/
+

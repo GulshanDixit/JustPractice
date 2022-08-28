@@ -81,17 +81,17 @@ int modulo(int a, int b)
     return a % b;
 }
 
-int main()
-{
-    FunctionCache cache(modulo);
-
-    // Function modulo should be called.
-    std::cout << cache(5, 2) << std::endl;
-
-    // Function modulo should be called.
-    std::cout << cache(7, 4) << std::endl;
-
-    // Function modulo shouldn't be called because we have already made a call with arguments (5, 2)!
-    std::cout << cache(5, 2) << std::endl;
-}
+//int main()
+//{
+//    FunctionCache cache(modulo);
+//
+//    // Function modulo should be called.
+//    std::cout << cache(5, 2) << std::endl;
+//
+//    // Function modulo should be called.
+//    std::cout << cache(7, 4) << std::endl;
+//
+//    // Function modulo shouldn't be called because we have already made a call with arguments (5, 2)!
+//    std::cout << cache(5, 2) << std::endl;
+//}
 #endif
